@@ -1,5 +1,6 @@
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { pageElements } from '../../e2e/pages/publish.page';
+import { deleteArticle } from '../../integration/delete/requests/DELETEArticle.request.js';
 import { generatedRandom } from '../random';
 
 //Background
@@ -16,6 +17,7 @@ And('I navigate to the "New Article" page', () => {
 
 //Write a new article
 When('I fill in the article fields with:', (table) => {
+    
     table.hashes().forEach(row => {
         cy.get(pageElements.titleInput).type(row.title)
         cy.get(pageElements.descriptionInput).type(row.description)
@@ -28,11 +30,13 @@ Then('I should be redirected to article page', () => {
 })
 And('I click the "Publish Article" button', () => {
     cy.get(pageElements.publishButton).click()
+    
 })
 
 //Write and publish an article with duplicate title
 Then('I should see an error message indicating that duplicate titles are not allowed', () => {
     cy.contains(pageElements.titleExistingMessage).should('be.visible');
+    deleteArticle('Test-Title');
 })
 //Write and publish an article with missing fields
 When('I fill in the other fields except {string}', (field) => {

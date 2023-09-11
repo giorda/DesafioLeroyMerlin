@@ -1,13 +1,16 @@
 
-module.exports = {
-    pageElements: {
-        loginPage: '/login',
-        passwordInput: '[placeholder = "Password"]',
-        emailInput: '[placeholder = "Email"]',
-        signInButton: '[type="submit"]',
-        userIcon: '.user-pic',
-        articleLink: '.article-preview',
-        deleteButton: ' Delete Article ',
-        feedPage: ' Global Feed '
+class deletePage {
+    profilePage() {
+        return cy.visit('/profile/Teste260823')
+    }
+    articleLink() {
+        return cy.get('.article-preview')
+    }
+    deleteButton() {
+        return cy.contains(' Delete Article ')
+    }
+    feedPage() {
+        return cy.contains(' Global Feed ')
     }
 }
+export default deletePage
